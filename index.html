@@ -16,10 +16,11 @@
       --accent2:#6ee7ff;
       --shadow: 0 20px 70px rgba(0,0,0,.35);
       --radius: 22px;
-      --ring: 0 0 0 4px rgba(255,93,162,.25);
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
       min-height:100vh;
@@ -29,21 +30,25 @@
         radial-gradient(900px 500px at 20% 10%, rgba(255,93,162,.25), transparent 60%),
         radial-gradient(700px 450px at 80% 30%, rgba(110,231,255,.22), transparent 55%),
         linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
     }
+
     .wrap{
       width:min(980px, 92vw);
       margin: 32px auto;
       display:grid;
       gap:18px;
     }
+
     header{
-      padding: 22px;
+      padding:22px;
     }
+
     h1{
       margin:0;
       font-size: clamp(32px, 4vw, 46px);
-      letter-spacing:-.02em;
     }
+
     .sub{
       margin-top:10px;
       color:var(--muted);
@@ -56,6 +61,7 @@
       grid-template-columns: 1.2fr .8fr;
       gap:18px;
     }
+
     @media (max-width: 860px){
       .grid{grid-template-columns:1fr}
     }
@@ -66,10 +72,13 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
+
     .inner{padding:22px}
+
     h2{margin:0 0 10px;font-size:20px}
 
     p{line-height:1.65}
+
     .muted{color:var(--muted)}
 
     .highlight{
@@ -85,6 +94,7 @@
       flex-wrap:wrap;
       margin-top:14px;
     }
+
     button{
       border:0;
       border-radius:14px;
@@ -95,7 +105,9 @@
       color:var(--text);
       border:1px solid rgba(255,255,255,.18);
     }
+
     button:hover{background: rgba(255,255,255,.18)}
+
     .primary{
       background: linear-gradient(90deg, rgba(255,93,162,.95), rgba(110,231,255,.75));
       color:#141427;
@@ -114,59 +126,41 @@
       border:1px solid rgba(110,231,255,.25);
     }
 
-    .countdown{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      margin-top:12px;
-    }
-    .kpi{
-      text-align:center;
-      background: rgba(255,255,255,.08);
-      border-radius:16px;
-      padding:12px;
-    }
-    .kpi strong{font-size:22px;display:block}
-    .kpi span{font-size:12px;color:var(--muted)}
-
-    input{
-      width:100%;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.08);
-      color:var(--text);
-    }
-    label{
-      font-size:12px;
-      color:var(--muted);
-      display:block;
-      margin:10px 0 6px;
-    }
-
-    /* floating hearts */
+    /* Hearts */
     .heart{
       position:fixed;
-      bottom:-30px;
-      left:var(--x);
-      width:12px;height:12px;
-      background:rgba(255,93,162,.8);
-      transform:rotate(45deg);
-      animation: floatUp var(--dur) linear forwards;
+      bottom:-20px;
+      left:50%;
+      width:14px;
+      height:14px;
+      background:var(--accent);
+      transform: rotate(45deg);
+      animation: floatUp 4s linear forwards;
       z-index:999;
     }
-    .heart::before,.heart::after{
+
+    .heart::before,
+    .heart::after{
       content:"";
       position:absolute;
-      width:12px;height:12px;
+      width:14px;
+      height:14px;
       background:inherit;
       border-radius:50%;
     }
-    .heart::before{left:-6px}
-    .heart::after{top:-6px}
+
+    .heart::before{left:-7px}
+    .heart::after{top:-7px}
+
     @keyframes floatUp{
-      from{opacity:0;transform:translateY(0) rotate(45deg)}
-      to{opacity:0;transform:translateY(-120vh) rotate(45deg)}
+      from{
+        opacity:0;
+        transform: translateX(0) translateY(0) rotate(45deg);
+      }
+      to{
+        opacity:1;
+        transform: translateX(var(--x)) translateY(-120vh) rotate(45deg);
+      }
     }
   </style>
 </head>
@@ -177,8 +171,8 @@
   <header>
     <h1>Hey Kratu baby 🤍</h1>
     <p class="sub">
-      I made this just for you, because some things deserve more than a message.
-      I’m really sorry — and I want you to feel how important you are to me.
+      I made this page only for you.
+      Some feelings are too important to be rushed or explained in a normal message.
     </p>
   </header>
 
@@ -187,31 +181,31 @@
     <!-- LEFT -->
     <div class="card">
       <div class="inner">
-        <h2>My apology</h2>
+        <h2>From my heart</h2>
 
         <p class="highlight">
-          Kratu baby, mujhse bahut badi galti ho gayi.
-          Gusse aur frustration mein maine bad words bole aur apni limits cross kar di.
-          Tum yeh sab bilkul deserve nahi karti.
-          Mujhe iska dil se regret hai.
+          Kratu baby, mujhse galti ho gayi.
+          Gusse mein aur frustration mein maine aise words bole jo mujhe nahi bolne chahiye the.
+          Tumhari feelings hurt hui and that was not okay.
+          Mujhe is baat ka sach mein bohot regret hai.
         </p>
 
         <p class="muted">
-          Main apni galti maanta hoon.
-          Main sudharna chahta hoon — sirf bolke nahi, apne actions se.
+          Main apni responsibility leta hoon.
+          Main chahta hoon ki tum mere actions mein change dekho, sirf promises nahi.
         </p>
 
         <div class="actions">
-          <button class="primary" id="heartsBtn">Send you tiny hearts</button>
-          <button id="promiseBtn">My promise to you</button>
+          <button class="primary" id="heartsBtn">Send you some love</button>
+          <button id="promiseBtn">What I promise you</button>
         </div>
 
         <p class="note" id="promiseText" hidden>
-          <strong>My promise:</strong><br>
-          Main aaj ke baad tumhara past kabhi nahi laaunga —
-          na baat mein, na gusse mein, na kisi argument mein.<br>
+          <strong>My promise to you:</strong><br>
+          Main future mein kabhi bhi tumhara past use nahi karunga.
+          Chahe discussion ho ya argument.
           Main respect ke saath baat karunga.
-          Tumhari peace mere ego se hamesha upar rahegi.
+          Tumhari peace mere gusse se hamesha zyada important rahegi.
         </p>
       </div>
     </div>
@@ -222,23 +216,11 @@
         <h2>For your exam 🌱</h2>
 
         <p class="quote">
-          Kratu baby, bas shaant rehna.
-          Ek question, ek moment.
-          Tumne bohot mehnat ki hai aur mujhe tum par poora bharosa hai.
-          Result kuch bhi ho — main tumhare saath hoon.
+          Kratu baby, bas apne upar bharosa rakhna.
+          Ek question pe focus karna.
+          Tumne jitni mehnat ki hai, woh matter karti hai.
+          Result jo bhi ho, main tumhare saath hoon.
         </p>
-
-        <label>Exam date & time (optional)</label>
-        <input type="datetime-local" id="examTime">
-
-        <div class="countdown">
-          <div class="kpi"><strong id="d">—</strong><span>Days</span></div>
-          <div class="kpi"><strong id="h">—</strong><span>Hours</span></div>
-          <div class="kpi"><strong id="m">—</strong><span>Mins</span></div>
-          <div class="kpi"><strong id="s">—</strong><span>Secs</span></div>
-        </div>
-
-        <p class="note" id="countNote">Set exam time to see countdown.</p>
       </div>
     </div>
 
@@ -246,49 +228,26 @@
 </div>
 
 <script>
-  const $ = id => document.getElementById(id);
-  const d=$("d"),h=$("h"),m=$("m"),s=$("s");
-  const examTime=$("examTime");
-  const countNote=$("countNote");
-  const promiseBtn=$("promiseBtn");
-  const promiseText=$("promiseText");
-  const heartsBtn=$("heartsBtn");
+  const heartsBtn = document.getElementById("heartsBtn");
+  const promiseBtn = document.getElementById("promiseBtn");
+  const promiseText = document.getElementById("promiseText");
 
-  promiseBtn.onclick=()=>{
-    promiseText.hidden=!promiseText.hidden;
+  promiseBtn.onclick = () => {
+    promiseText.hidden = !promiseText.hidden;
   };
 
-  heartsBtn.onclick=()=>{
-    for(let i=0;i<25;i++){
+  heartsBtn.onclick = () => {
+    for(let i=0;i<30;i++){
       setTimeout(()=>{
-        const el=document.createElement("div");
-        el.className="heart";
-        el.style.setProperty("--x",Math.random()*100+"vw");
-        el.style.setProperty("--dur",(4+Math.random()*3)+"s");
-        document.body.appendChild(el);
-        setTimeout(()=>el.remove(),7000);
-      },i*80);
+        const heart=document.createElement("div");
+        heart.className="heart";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.setProperty("--x",(Math.random()*100-50)+"px");
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+      }, i*70);
     }
   };
-
-  function tick(){
-    if(!examTime.value){
-      d.textContent=h.textContent=m.textContent=s.textContent="—";
-      return;
-    }
-    const diff=new Date(examTime.value)-new Date();
-    if(diff<=0){
-      d.textContent=h.textContent=m.textContent=s.textContent="0";
-      countNote.textContent="It’s exam time. I’m with you 🤍";
-      return;
-    }
-    const t=Math.floor(diff/1000);
-    d.textContent=Math.floor(t/86400);
-    h.textContent=String(Math.floor(t%86400/3600)).padStart(2,"0");
-    m.textContent=String(Math.floor(t%3600/60)).padStart(2,"0");
-    s.textContent=String(t%60).padStart(2,"0");
-  }
-  setInterval(tick,1000);
 </script>
 
 </body>
