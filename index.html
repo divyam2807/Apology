@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For You ❤️</title>
+  <style>
+    :root{
+      --bg1:#0f1020;
+      --bg2:#1b1d36;
+      --card: rgba(255,255,255,.08);
+      --card2: rgba(255,255,255,.12);
+      --text:#f5f6ff;
+      --muted: rgba(245,246,255,.75);
+      --accent:#ff5da2;
+      --accent2:#6ee7ff;
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
+      --radius: 22px;
+      --ring: 0 0 0 4px rgba(255,93,162,.25);
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(255,93,162,.25), transparent 60%),
+        radial-gradient(700px 450px at 80% 30%, rgba(110,231,255,.22), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .wrap{
+      width:min(980px, 92vw);
+      margin: clamp(24px, 5vw, 56px) auto;
+      display:grid;
+      gap:18px;
+    }
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding: 22px 22px 0;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background:linear-gradient(90deg, rgba(255,93,162,.22), rgba(110,231,255,.18));
+      border:1px solid rgba(255,255,255,.18);
+      padding:10px 14px;
+      border-radius:999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      user-select:none;
+      white-space:nowrap;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 6px rgba(255,93,162,.15);
+    }
+    h1{
+      margin:0;
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing:-.02em;
+      line-height:1.05;
+    }
+    .sub{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size: clamp(14px, 1.6vw, 17px);
+      line-height:1.5;
+      max-width:65ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+    }
+    @media (max-width: 860px){
+      .grid{grid-template-columns:1fr}
+      header{flex-direction:column; align-items:flex-start}
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(650px 220px at 20% 0%, rgba(255,93,162,.25), transparent 65%),
+                  radial-gradient(650px 240px at 80% 0%, rgba(110,231,255,.22), transparent 62%);
+      pointer-events:none;
+      opacity:.7;
+    }
+    .card > *{position:relative}
+    .card .inner{padding:22px}
+
+    .title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:10px;
+    }
+    h2{
+      margin:0;
+      font-size:20px;
+      letter-spacing:-.01em;
+    }
+    .pill{
+      font-size:12px;
+      color:rgba(245,246,255,.9);
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    p{
+      margin:10px 0;
+      color:rgba(245,246,255,.9);
+      line-height:1.6;
+    }
+    .muted{color:var(--muted)}
+    .highlight{
+      background: rgba(255,93,162,.14);
+      border: 1px solid rgba(255,93,162,.25);
+      padding: 14px 14px;
+      border-radius:16px;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+    button{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight:650;
+      letter-spacing:.01em;
+      background: rgba(255,255,255,.12);
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.18);
+      transition: transform .08s ease, background .2s ease, box-shadow .2s ease;
+      outline:none;
+    }
+    button:hover{background: rgba(255,255,255,.16)}
+    button:active{transform: translateY(1px)}
+    button:focus-visible{box-shadow: var(--ring)}
+    .primary{
+      background: linear-gradient(90deg, rgba(255,93,162,.95), rgba(110,231,255,.75));
+      border: 1px solid rgba(255,255,255,.20);
+      color:#141427;
+    }
+    .primary:hover{filter:brightness(1.03)}
+    .tiny{
+      font-size:12px;
+      font-weight:600;
+      padding:10px 12px;
+      border-radius:12px;
+    }
+
+    .note{
+      margin-top:14px;
+      font-size: 13px;
+      color: rgba(245,246,255,.72);
+    }
+
+    .panel{
+      display:grid;
+      gap:14px;
+    }
+
+    .countdown{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+      margin-top: 10px;
+    }
+    .kpi{
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius: 18px;
+      padding: 12px;
+      text-align:center;
+    }
+    .kpi strong{
+      display:block;
+      font-size:22px;
+      letter-spacing:-.02em;
+    }
+    .kpi span{
+      font-size:12px;
+      color:rgba(245,246,255,.72);
+    }
+
+    .footer{
+      padding: 0 22px 18px;
+      color: rgba(245,246,255,.55);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* Floating hearts */
+    .heart{
+      position: fixed;
+      left: var(--x);
+      bottom: -40px;
+      width: 12px; height: 12px;
+      transform: rotate(45deg);
+      background: rgba(255,93,162,.75);
+      box-shadow: 0 10px 30px rgba(255,93,162,.25);
+      animation: floatUp var(--dur) linear forwards;
+      pointer-events:none;
+      z-index: 999;
+    }
+    .heart:before, .heart:after{
+      content:"";
+      position:absolute;
+      width: 12px; height: 12px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart:before{left:-6px; top:0}
+    .heart:after{top:-6px; left:0}
+    @keyframes floatUp{
+      0%{transform: translateY(0) rotate(45deg) scale(.9); opacity:.0}
+      10%{opacity:.9}
+      100%{transform: translateY(-120vh) rotate(45deg) scale(1.25); opacity:0}
+    }
+
+    input[type="text"], input[type="datetime-local"]{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      outline:none;
+    }
+    input:focus-visible{box-shadow: var(--ring)}
+    label{
+      font-size: 12px;
+      color: rgba(245,246,255,.70);
+      display:block;
+      margin: 10px 0 6px;
+    }
+
+    .quote{
+      padding:14px 14px;
+      border-radius: 18px;
+      background: rgba(110,231,255,.10);
+      border: 1px solid rgba(110,231,255,.20);
+      color: rgba(245,246,255,.92);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="badge" title="A small page with a big message">
+          <span class="dot"></span>
+          <span>Made with love + courage</span>
+        </div>
+
+        <h1 id="headline">Hey <span id="nameOut">love</span>.</h1>
+        <p class="sub" id="subline">
+          I made this little page because some things deserve more than a quick text.
+          I’m sorry — and I’m cheering for you, especially for your exam.
+        </p>
+      </div>
+
+      <button class="tiny" id="musicBtn" aria-pressed="false" title="Optional: toggle a tiny background tone">
+        Sound: Off
+      </button>
+    </header>
+
+    <section class="grid">
+      <!-- Left: Apology -->
+      <div class="card">
+        <div class="inner">
+          <div class="title">
+            <h2>My apology</h2>
+            <span class="pill">From me → you</span>
+          </div>
+
+          <p class="highlight" id="apologyText">
+            I’m really sorry for hurting you. You didn’t deserve that.
+            I take responsibility for my actions and I’m going to do better—not just say it.
+          </p>
+
+          <p class="muted">
+            If you’re willing, I’d like to listen (for real), understand how you felt,
+            and make it right in a way that matters to you.
+          </p>
+
+          <div class="actions">
+            <button class="primary" id="sendHearts">Send you a thousand tiny hearts</button>
+            <button id="promiseBtn">What I’m promising</button>
+            <button id="resetBtn">Reset</button>
+          </div>
+
+          <p class="note" id="promiseNote" hidden>
+            <strong>My promise:</strong> I’ll communicate calmly, own my mistakes, and protect your peace.
+            I’ll choose patience over ego, and I’ll show you love in the ways you actually feel it.
+          </p>
+        </div>
+        <div class="footer">
+          <span>Tip: personalize the fields on the right.</span>
+          <span id="savedHint">Not saved yet</span>
+        </div>
+      </div>
+
+      <!-- Right: Exam luck + personalization -->
+      <div class="panel">
+        <div class="card">
+          <div class="inner">
+            <div class="title">
+              <h2>Best of luck for your exam</h2>
+              <span class="pill">You’ve got this</span>
+            </div>
+
+            <p class="quote" id="examMsg">
+              Breathe. Focus. One question at a time. I believe in you more than you know.
+              I’m proud of how hard you’ve worked—and I’m rooting for you all the way.
+            </p>
+
+            <label for="examTime">Exam date/time (optional)</label>
+            <input id="examTime" type="datetime-local" />
+
+            <div class="countdown" aria-label="Countdown">
+              <div class="kpi"><strong id="d">—</strong><span>Days</span></div>
+              <div class="kpi"><strong id="h">—</strong><span>Hours</span></div>
+              <div class="kpi"><strong id="m">—</strong><span>Mins</span></div>
+              <div class="kpi"><strong id="s">—</strong><span>Secs</span></div>
+            </div>
+
+            <p class="note" id="countNote">Set an exam time to see a countdown.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="inner">
+            <div class="title">
+              <h2>Personalize it</h2>
+              <span class="pill">Make it yours</span>
+            </div>
+
+            <label for="nameIn">Her name / nickname</label>
+            <input id="nameIn" type="text" placeholder="e.g., Aisha / Babe / My love" />
+
+            <label for="sorryIn">Your apology line (optional)</label>
+            <input id="sorryIn" type="text" placeholder="e.g., I’m sorry for being insensitive earlier..." />
+
+            <label for="luckIn">Your exam wish (optional)</label>
+            <input id="luckIn" type="text" placeholder="e.g., Good luck tomorrow—ace it!" />
+
+            <div class="actions">
+              <button class="primary" id="saveBtn">Save on this device</button>
+              <button id="copyBtn">Copy a sweet message</button>
+            </div>
+
+            <p class="note">
+              Privacy note: “Save” stores text only in your browser (localStorage).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <audio id="tone" loop>
+    <!-- Tiny generated tone using a data URI is not practical here; we'll use WebAudio instead -->
+  </audio>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const nameOut = $("nameOut");
+    const headline = $("headline");
+    const apologyText = $("apologyText");
+    const examMsg = $("examMsg");
+    const savedHint = $("savedHint");
+
+    const nameIn = $("nameIn");
+    const sorryIn = $("sorryIn");
+    const luckIn = $("luckIn");
+    const examTime = $("examTime");
+
+    const promiseBtn = $("promiseBtn");
+    const promiseNote = $("promiseNote");
+    const resetBtn = $("resetBtn");
+    const saveBtn = $("saveBtn");
+    const copyBtn = $("copyBtn");
+    const sendHearts = $("sendHearts");
+
+    // Countdown elements
+    const dEl = $("d"), hEl = $("h"), mEl = $("m"), sEl = $("s");
+    const countNote = $("countNote");
+
+    // --------- Personalization live update ----------
+    function update() {
+      const nm = (nameIn.value || "love").trim();
+      nameOut.textContent = nm;
+
+      const baseApology = "I’m really sorry for hurting you. You didn’t deserve that. I take responsibility for my actions and I’m going to do better—not just say it.";
+      const customSorry = sorryIn.value.trim();
+      apologyText.textContent = customSorry ? customSorry : baseApology;
+
+      const baseLuck = "Breathe. Focus. One question at a time. I believe in you more than you know. I’m proud of how hard you’ve worked—and I’m rooting for you all the way.";
+      const customLuck = luckIn.value.trim();
+      examMsg.textContent = customLuck ? customLuck : baseLuck;
+    }
+
+    ["input","change"].forEach(evt=>{
+      nameIn.addEventListener(evt, update);
+      sorryIn.addEventListener(evt, update);
+      luckIn.addEventListener(evt, update);
+    });
+
+    // --------- Save / load ----------
+    const KEY = "apology_page_v1";
+    function save() {
+      const payload = {
+        name: nameIn.value,
+        sorry: sorryIn.value,
+        luck: luckIn.value,
+        examTime: examTime.value
+      };
+      localStorage.setItem(KEY, JSON.stringify(payload));
+      savedHint.textContent = "Saved ✓";
+      setTimeout(()=> savedHint.textContent = "Saved on this device", 900);
+    }
+    function load() {
+      try{
+        const raw = localStorage.getItem(KEY);
+        if(!raw) return;
+        const p = JSON.parse(raw);
+        nameIn.value = p.name || "";
+        sorryIn.value = p.sorry || "";
+        luckIn.value = p.luck || "";
+        examTime.value = p.examTime || "";
+        savedHint.textContent = "Loaded ✓";
+        update();
+      }catch(e){}
+    }
+    saveBtn.addEventListener("click", save);
+
+    // --------- Copy message ----------
+    copyBtn.addEventListener("click", async () => {
+      const nm = (nameIn.value || "love").trim();
+      const msg =
+`Hey ${nm},
+I’m sorry. I take responsibility, and I want to do better.
+Good luck for your exam — I believe in you. One question at a time. You’ve got this.
+— me`;
+      try{
+        await navigator.clipboard.writeText(msg);
+        copyBtn.textContent = "Copied ✓";
+        setTimeout(()=> copyBtn.textContent = "Copy a sweet message", 900);
+      }catch(e){
+        alert("Couldn’t copy automatically. You can manually copy:\n\n" + msg);
+      }
+    });
+
+    // --------- Promise toggle ----------
+    promiseBtn.addEventListener("click", () => {
+      promiseNote.hidden = !promiseNote.hidden;
+      promiseBtn.textContent = promiseNote.hidden ? "What I’m promising" : "Hide promise";
+    });
+
+    // --------- Reset ----------
+    resetBtn.addEventListener("click", () => {
+      nameIn.value = "";
+      sorryIn.value = "";
+      luckIn.value = "";
+      examTime.value = "";
+      localStorage.removeItem(KEY);
+      savedHint.textContent = "Reset done";
+      promiseNote.hidden = true;
+      promiseBtn.textContent = "What I’m promising";
+      update();
+    });
+
+    // --------- Hearts ----------
+    function popHeart() {
+      const el = document.createElement("div");
+      el.className = "heart";
+      const x = Math.random() * 100;
+      const dur = 4 + Math.random() * 3.5;
+      el.style.setProperty("--x", x + "vw");
+      el.style.setProperty("--dur", dur + "s");
+      el.style.background = Math.random() > 0.5 ? "rgba(255,93,162,.8)" : "rgba(110,231,255,.65)";
+      document.body.appendChild(el);
+      setTimeout(()=> el.remove(), dur * 1000);
+    }
+    sendHearts.addEventListener("click", () => {
+      let i = 0;
+      const burst = setInterval(() => {
+        popHeart();
+        i++;
+        if (i > 24) clearInterval(burst);
+      }, 60);
+    });
+
+    // --------- Countdown ----------
+    function tick() {
+      const val = examTime.value;
+      if(!val){
+        dEl.textContent=hEl.textContent=mEl.textContent=sEl.textContent="—";
+        countNote.textContent = "Set an exam time to see a countdown.";
+        return;
+      }
+      const target = new Date(val);
+      const now = new Date();
+      let diff = target - now;
+
+      if (isNaN(target.getTime())){
+        countNote.textContent = "That date/time doesn’t look valid.";
+        return;
+      }
+
+      if (diff <= 0){
+        dEl.textContent="0"; hEl.textContent="0"; mEl.textContent="0"; sEl.textContent="0";
+        countNote.textContent = "It’s exam time. I’m with you—go shine.";
+        return;
+      }
+
+      const s = Math.floor(diff / 1000);
+      const days = Math.floor(s / 86400);
+      const hrs = Math.floor((s % 86400) / 3600);
+      const mins = Math.floor((s % 3600) / 60);
+      const secs = s % 60;
+
+      dEl.textContent = String(days);
+      hEl.textContent = String(hrs).padStart(2,"0");
+      mEl.textContent = String(mins).padStart(2,"0");
+      sEl.textContent = String(secs).padStart(2,"0");
+      countNote.textContent = "Countdown to the moment you prove to yourself how capable you are.";
+    }
+    examTime.addEventListener("input", () => { tick(); save(); });
+
+    // --------- Optional sound (WebAudio) ----------
+    const musicBtn = $("musicBtn");
+    let audioCtx, osc, gain, playing=false;
+
+    function startTone(){
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      osc = audioCtx.createOscillator();
+      gain = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = 220; // A3
+      gain.gain.value = 0.0;
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start();
+      // gentle fade in
+      gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.6);
+      playing = true;
+      musicBtn.textContent = "Sound: On";
+      musicBtn.setAttribute("aria-pressed","true");
+    }
+    function stopTone(){
+      if(!audioCtx || !osc || !gain) return;
+      // fade out then stop
+      gain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
+      setTimeout(()=>{
+        try{ osc.stop(); }catch(e){}
+        osc.disconnect(); gain.disconnect();
+        osc=null; gain=null;
+      }, 500);
+      playing = false;
+      musicBtn.textContent = "Sound: Off";
+      musicBtn.setAttribute("aria-pressed","false");
+    }
+    musicBtn.addEventListener("click", async () => {
+      if(!playing){
+        try{
+          startTone();
+        }catch(e){
+          alert("Sound couldn’t start in this browser.");
+        }
+      }else{
+        stopTone();
+      }
+    });
+
+    // init
+    load();
+    update();
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
